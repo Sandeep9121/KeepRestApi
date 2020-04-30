@@ -1,0 +1,38 @@
+2020-04-30 19:29:40,967 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-04-30 19:48:52,163 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-04-30 19:50:57,087 [Worker-5: Import Getting Started Content] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.bridgelabz:UserServices:0.0.1-SNAPSHOT @ C:\Users\Mr Sandeep\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\FundooNotes\UserServices\pom.xml.
+2020-04-30 19:51:02,368 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /UserServices/src/main/java
+2020-04-30 19:51:02,368 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /UserServices/src/main/resources
+2020-04-30 19:51:02,384 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /UserServices/src/main/resources
+2020-04-30 19:51:02,415 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /UserServices/src/test/java
+2020-04-30 19:51:07,021 [Worker-5: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 16 sec
+2020-04-30 19:51:07,021 [Worker-5: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2020-04-30 19:51:07,790 [Worker-5: Import Getting Started Content] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.bridgelabz:UserServices:0.0.1-SNAPSHOT @ C:\Users\Mr Sandeep\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\FundooNotes\UserServices\pom.xml.
+2020-04-30 19:51:10,062 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /UserServices/src/main/java
+2020-04-30 19:51:10,064 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /UserServices/src/main/resources
+2020-04-30 19:51:10,064 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /UserServices/src/main/resources
+2020-04-30 19:51:10,066 [Worker-5: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /UserServices/src/test/java
+2020-04-30 19:51:12,318 [Worker-5: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 5 sec
+2020-04-30 19:51:13,771 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-04-30 19:51:13,771 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-04-30 19:51:13,802 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-04-30 19:51:13,802 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-04-30 19:51:13,802 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Mr Sandeep\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\FundooNotes\UserServices\src\test\resources
+2020-04-30 20:30:16,556 [Worker-11: Import Getting Started Content] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.bridgelabz:NoteServices:0.0.1-SNAPSHOT @ C:\Users\Mr Sandeep\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\FundooNotes\NoteServices\pom.xml.
+2020-04-30 20:30:17,358 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /NoteServices/src/main/java
+2020-04-30 20:30:17,359 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /NoteServices/src/main/resources
+2020-04-30 20:30:17,374 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /NoteServices/src/main/resources
+2020-04-30 20:30:17,394 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /NoteServices/src/test/java
+2020-04-30 20:30:17,857 [Worker-11: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 1 sec
+2020-04-30 20:30:17,858 [Worker-11: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2020-04-30 20:30:18,560 [Worker-11: Import Getting Started Content] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.bridgelabz:NoteServices:0.0.1-SNAPSHOT @ C:\Users\Mr Sandeep\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\FundooNotes\NoteServices\pom.xml.
+2020-04-30 20:30:19,491 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /NoteServices/src/main/java
+2020-04-30 20:30:19,492 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /NoteServices/src/main/resources
+2020-04-30 20:30:19,495 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /NoteServices/src/main/resources
+2020-04-30 20:30:19,503 [Worker-11: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /NoteServices/src/test/java
+2020-04-30 20:30:19,860 [Worker-11: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 2 sec
+2020-04-30 20:30:21,465 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-04-30 20:30:21,466 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-04-30 20:30:21,469 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-04-30 20:30:21,472 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-04-30 20:30:21,473 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Mr Sandeep\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\FundooNotes\NoteServices\src\test\resources
