@@ -1,0 +1,200 @@
+/*********************************************************************
+ * 
+ * @author Mr Sandeep
+ * 
+ *@since March8
+ * 
+ * Notes Controller having api Crud apis trash ,archive, pinned get all notes ..
+ * 
+ **********************************/
+
+
+
+package com.bridzelabz.fundoonotes.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bridzelabz.fundoonotes.dto.NoteDto;
+import com.bridzelabz.fundoonotes.dto.NoteUpdate;
+import com.bridzelabz.fundoonotes.dto.ReminderDto;
+import com.bridzelabz.fundoonotes.model.NotesEntity;
+import com.bridzelabz.fundoonotes.reponse.Response;
+import com.bridzelabz.fundoonotes.services.ICollaboratorServices;
+import com.bridzelabz.fundoonotes.services.INoteServices;
+
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+@RestController
+@CrossOrigin("*")
+public class NoteController {
+	@Autowired
+	private INoteServices noteServices;
+	@Autowired
+	private ICollaboratorServices 	serviceCollaborator;
+
+	@PostMapping("/note/create")
+	public ResponseEntity<Response> createNote(@RequestBody NoteDto noteDto, @RequestHeader("token") String token) {
+		if(noteServices.createNote(noteDto, token)) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note created",200,noteDto));
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("Unable to create Notes"));
+		
+	}
+
+	@PutMapping("/note/update/{notesId}")
+	public ResponseEntity<Response> updatenote(@PathVariable long notesId,@RequestBody NoteUpdate updateNote, @RequestHeader String token) {
+		if(noteServices.updateNote(notesId,updateNote, token)) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is Updated",notesId));
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("UNABLE TO UPDATE"));
+	}
+
+	@DeleteMapping("/note/delete/{notesId}")
+	public ResponseEntity<Response> delete(@PathVariable long notesId, @RequestHeader("token") String token) {
+		noteServices.deleteNote(notesId, token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is Deleted"));
+	}
+
+	@PutMapping("/note/archieve/{notesId}")
+	public ResponseEntity<Response> archieve(@PathVariable long notesId, @RequestHeader("token") String token) {
+		if(noteServices.archieveNote(notesId, token)){
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is archieved",notesId));
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("unable to archieved"));
+	}
+
+	@PutMapping("/note/pinNote/{notesId}")
+	public ResponseEntity<Response> pinNote(@PathVariable long notesId, @RequestHeader("token") String token) {
+		if(noteServices.pinNote(notesId, token)) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is pinned",notesId));
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("unable to pin",notesId));
+	}
+	
+	
+	@PutMapping("/note/addColor")
+	public ResponseEntity<Response> addColor(@RequestParam("notesId") Long notesId, @RequestParam("color") String color, @RequestHeader("token") String token)
+	{
+		if(noteServices.addColor(notesId, token, color)){
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is colored",notesId));
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("unable to colored"));
+	}
+	
+	@PutMapping("/note/trashed/{notesId}")
+	public ResponseEntity<Response> trashed(@PathVariable Long notesId, @RequestHeader String token){
+		if(noteServices.trashed(token, notesId)) {	
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is trashed",notesId));
+		}else {
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("unable to trash",notesId));
+		}
+		
+	}
+	
+	@PutMapping("/note/restore/{notesId}")
+	public ResponseEntity<Response> restore(@PathVariable Long notesId, @RequestHeader String token){
+		if(noteServices.restored(token, notesId)) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is restored",notesId));
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("note is not deleted"));
+		
+	}
+	
+	@PutMapping("/note/addReminder")
+	public ResponseEntity<Response> reminder(@RequestParam("notesId") Long notesId, @RequestHeader String token ,@RequestBody ReminderDto reminder){
+      if(noteServices.addReminder(token, notesId, reminder)){
+    	return  ResponseEntity.status(HttpStatus.CREATED).body(new Response("Reminder is Added",notesId));
+      }
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("unable to add Reminder"));
+	}
+	
+
+	@PutMapping("/note/removeReminder")
+	public ResponseEntity<Response> removeReminder(@RequestParam("notesId") Long notesId, @RequestHeader String token){
+      if(noteServices.removeReminder(token, notesId)){
+    	return  ResponseEntity.status(HttpStatus.CREATED).body(new Response("Reminder is removed",notesId));
+      }
+		return ResponseEntity.status(HttpStatus.CREATED).body(new Response("unable to remove remainder"));
+	}
+	
+	@GetMapping("/note/allNotes")
+	public ResponseEntity<Response> getAllnotes(@RequestHeader("token") String token){
+		List<NotesEntity> allnotes=noteServices.getAllnotes(token);
+		if(allnotes!=null) {
+		log.info("notes"+allnotes);
+	    return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("list of your notes", allnotes));
+		}
+		return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("List is Empty",allnotes));
+	}
+	
+	@GetMapping("/note/allArchieved")
+	public ResponseEntity<Response> getAllArchieved(@RequestHeader("token") String token){
+		List<NotesEntity> allnotes=noteServices.getAllArchieveNotes(token);
+		if(allnotes!=null) {
+		log.info("notes"+allnotes);
+	    return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("list of your notes", allnotes));
+		}
+		return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("List is Empty"));
+	}
+	
+
+	@GetMapping("/note/allTrashed")
+	public ResponseEntity<Response> getAllTrashed(@RequestHeader("token") String token){
+		List<NotesEntity> allnotes=noteServices.getAllTrashedNotes(token);
+		if(allnotes!=null) {
+		log.info("notes"+allnotes);
+	    return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("list of your notes", allnotes));
+		}
+		return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("List is Empty"));
+	}
+	
+	@GetMapping("/note/allPinned")
+	public ResponseEntity<Response> getAllPinned(@RequestHeader("token") String token){
+		List<NotesEntity> allnotes=noteServices.getAllPinnedNotes(token);
+		if(allnotes!=null) {
+		log.info("notes"+allnotes);
+	    return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("list of your notes", allnotes));
+		}
+		return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("List is Empty"));
+	}
+	
+	@GetMapping("/note/getNotesByTitle")
+	public ResponseEntity<Response> getNotesByTitle(@RequestParam String title , @RequestHeader String token)
+	{
+		List<NotesEntity> notes = noteServices.searchByTitle(title , token);
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes fetched by title" , notes));
+	}
+	
+	
+	
+	
+//	@GetMapping("/notesex")
+//	public ResponseEntity<Response> get(@RequestParam("token") String token){
+//		log.info("=-----------------------hey i am out");
+//		List<NotesEntity> allnotes=noteServices.getAllnotes(token);
+//		//log.info("notesInfo"+allnotes);
+//		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("gwtting",token));
+//	}
+	
+	
+
+	
+	
+	
+	
+	
+}

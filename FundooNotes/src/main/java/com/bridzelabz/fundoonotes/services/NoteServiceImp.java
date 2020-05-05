@@ -1,5 +1,6 @@
 package com.bridzelabz.fundoonotes.services;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -16,11 +17,11 @@ import com.bridzelabz.fundoonotes.customexception.UserNotFoundException;
 import com.bridzelabz.fundoonotes.dto.NoteDto;
 import com.bridzelabz.fundoonotes.dto.NoteUpdate;
 import com.bridzelabz.fundoonotes.dto.ReminderDto;
+import com.bridzelabz.fundoonotes.model.ImageModel;
 import com.bridzelabz.fundoonotes.model.NotesEntity;
 import com.bridzelabz.fundoonotes.model.UsersEntity;
 import com.bridzelabz.fundoonotes.repository.INoteRepository;
 import com.bridzelabz.fundoonotes.repository.IUsersRepository;
-import com.bridzelabz.fundoonotes.repository.ImageRepository;
 import com.bridzelabz.fundoonotes.repository.UsersRepository;
 import com.bridzelabz.fundoonotes.utility.ImageCompress;
 import com.bridzelabz.fundoonotes.utility.JWTGenerator;
@@ -30,8 +31,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class NoteServiceImp implements INoteServices {
-   @Autowired
-	private ImageRepository imgRepo;
+	
+	@Autowired
+	private ImageCompress impCompressor;
+//   @Autowired
+//	private ImageRepository imgRepo;
 	@Autowired
 	private INoteRepository notesRepository;
 	@Autowired
@@ -63,10 +67,10 @@ public class NoteServiceImp implements INoteServices {
 				notes.setNotesCreatedDate(LocalDateTime.now());
 				notes.setPinned(false);
 				notes.setTrashed(false);
-		        notes.setImage(null);
+		       // notes.setImage(null);
 				
 				/*
-				 * mapping user to note
+				 * mapping user to notesss
 				 */
 				user.get().getNote().add(notes);
 				
@@ -275,20 +279,74 @@ public class NoteServiceImp implements INoteServices {
 	}
 
 
+	/*
+	 *
+	public BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+
+		System.out.println("Original Image Byte Size - " + file.getBytes().length);
+		ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),
+				compressBytes(file.getBytes()));
+		imageRepository.save(img);
+		return ResponseEntity.status(HttpStatus.OK);
+	}
+	 */
+	
+	
+	
+	
 	@Override
-	public MultipartFile uploadImg(String token,Long notesId,MultipartFile file) {
-		Long userId = generateToken.parseJWTToken(token);
-		UsersEntity user= repository.getusersByid(userId);
-		if(user!=null) {
-			NotesEntity notes = notesRepository.findBynotesId(notesId);
-			if(notes!=null) {
-			notes.setImage(file.getOriginalFilename());
-			notesRepository.createNote(notes);
-			return file;
-			}
+	public ImageModel uploadImg(String token, Long notesId, MultipartFile file) {
+		NotesEntity notes = notesRepository.findBynotesId(notesId);
+		if(notes!=null) {
+		try {
+			ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),
+					impCompressor.compressImg(file.getBytes()));
+			        
+			        log.info(file.getOriginalFilename());
+			        log.info("image in Streams---------"+ file.getBytes());
+			       // log.info("------compressed Byte Stream--"+impCompressor.compressImg(file.getBytes()));
+			        notesRepository.createNote(notes);
+			       // imgRepo.save(img);
+			        log.info("------compressed Byte Stream--"+impCompressor.compressImg(file.getBytes()));
+			       notesRepository.picByte(file.getOriginalFilename(),
+			    		   impCompressor.compressImg(file.getBytes()),file.getContentType(), notesId);
+			        return  img;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}//image compressor
+		}
+		else {
+			throw new NoteNotFoundException("there is no notes on userId please create a note",HttpStatus.NOT_FOUND);
 		}
 		return null;
 	}
+	
+	/*
+	 * 
+	public ImageModel getImage(@PathVariable("imageName") String imageName) throws IOException {
+
+		final Optional<ImageModel> retrievedImage = imageRepository.findByName(imageName);
+		ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
+				decompressBytes(retrievedImage.get().getPicByte()));
+		return img;
+	}
+	 */
+
+//
+//	@Override
+//	public MultipartFile uploadImg(String token,Long notesId,MultipartFile file) {
+//		Long userId = generateToken.parseJWTToken(token);
+//		UsersEntity user= repository.getusersByid(userId);
+//		if(user!=null) {
+//			NotesEntity notes = notesRepository.findBynotesId(notesId);
+//			if(notes!=null) {
+//			notes.setImage(file.getOriginalFilename());
+//			notesRepository.createNote(notes);
+//			return file;
+//			}
+//		}
+//		return null;
+//	}
 
 	
 	

@@ -1,0 +1,208 @@
+package com.bridzelabz.fundoonotes.services;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bridzelabz.fundoonotes.customexception.CollaboratorNotFoundExcepton;
+import com.bridzelabz.fundoonotes.customexception.ExitsEmailException;
+import com.bridzelabz.fundoonotes.customexception.MailNotFoundException;
+import com.bridzelabz.fundoonotes.customexception.UserNotFoundException;
+import com.bridzelabz.fundoonotes.model.NotesEntity;
+import com.bridzelabz.fundoonotes.model.UsersEntity;
+import com.bridzelabz.fundoonotes.reponse.EmailData;
+import com.bridzelabz.fundoonotes.repository.IUsersRepository;
+import com.bridzelabz.fundoonotes.repository.NotesRepository;
+import com.bridzelabz.fundoonotes.repository.UsersRepository;
+import com.bridzelabz.fundoonotes.utility.EmailProviderService;
+import com.bridzelabz.fundoonotes.utility.JWTGenerator;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class CollaborateServiceImp implements ICollaboratorServices {
+	@Autowired
+	private JWTGenerator generateToken;
+
+	private UsersEntity user = new UsersEntity();
+
+	@Autowired
+	private UsersRepository repository;
+
+	@Autowired
+	private IUsersRepository usersRepository;
+
+	@Autowired
+	private NotesRepository notesRepository;
+
+	@Autowired
+	private EmailData emailData;
+
+	@Autowired
+	private EmailProviderService em;
+
+//	/
+//
+//@Transactional
+//	public NotesEntity addCollaborator(Long notesId,String email, String token) {
+//		UsersEntity user;
+//	
+//		UsersEntity	collaborator=repository.getusersByemail(email);
+//		log.info("------  -----  ---"+collaborator);
+//		try {
+//			Long userId=generateToken.parseJWTToken(token);
+//			user=repository.getusersByid(userId);
+//		}catch (Exception e) {
+//		    throw new UserNotFoundException("USER NOT FOUND WITH GIVEN Id",HttpStatus.NOT_FOUND);
+//		}
+//		if(user!=null) {
+//			if(collaborator!=null) {
+//			NotesEntity note=notesRepository.findBynotesId(notesId);
+//		    collaborator.getCollaborateNotes().add(note);
+//			usersRepository.save(collaborator);
+//			notesRepository.createNote(note);
+//			return note;
+//			}else {
+//				throw new CollaboratorNotFoundExcepton("Collaborator is null",HttpStatus.NOT_FOUND);
+//			}
+//		}else {
+//			throw new UserNotFoundException("user not found",HttpStatus.NOT_FOUND);
+//         		}
+//	}
+//
+
+//	@Override
+//	@Transactional
+//	public NotesEntity addCollaborator(long notesId, String email, String token) {
+//
+//		long userId = jwtUtil.parseToken(token);
+//
+//		User user = userRepository.findById(userId);
+//		if(user!=null)
+//		{
+//
+//			User collaborator = userRepository.findByMail(email);
+//			if(collaborator!=null)
+//			{
+//
+//				NoteEntity note = noteRepository.fetchById(noteId);
+//
+//				if(note.getCollaborators().contains(collaborator)!=true)
+//				{
+//					collaborator.getCollaboratorNotes().add(note);
+//					emailModel.setMessage("Inviting to fundoo note");
+//					emailModel.setEmail(email);
+//					emailModel.setSubject("Click note to open ");
+//					EmailUtil.sendAttachmentEmail(emailModel.getEmail(), emailModel.getSubject(), emailModel.getMessage());
+//					return note;
+//				}
+//				else
+//
+//					throw new UserAlreadyExistException("User already collaborated", HttpStatus.ALREADY_REPORTED);
+//			}
+//			else
+//				throw new MailNotFoundException("User not found with mail:"+email, HttpStatus.NOT_FOUND);
+//
+//		}
+//		else
+//			throw new UserNotFoundException("user Not Found", HttpStatus.NOT_FOUND);
+//
+//	}
+
+	@Override
+	public NotesEntity addCollaborator(Long notesId, String email, String token) {
+		Long userId = generateToken.parseJWTToken(token);
+		user = repository.getusersByid(userId);
+		if (user != null) {
+
+			UsersEntity collaborator = repository.getusersByemail(email);
+			if (collaborator != null) {
+				NotesEntity note = notesRepository.findBynotesId(notesId);
+				// if(note.getCollaborators().contains(collaborator)!=true)
+				if (note.getCollaborateUser().contains(collaborator) != true)
+				{
+					collaborator.getCollaborateNotes().add(note);
+					
+					emailData.setEmail("Invitaion for Fundoo notes Collaboration");
+
+					emailData.setSubject(email);
+
+					emailData.setBody("Click here to seee open");
+
+					em.sendMail(emailData.getEmail(), emailData.getSubject(), emailData.getBody());
+					
+                    repository.save(collaborator);
+                    
+                    notesRepository.createNote(note);
+		
+					return note;
+				} else
+					throw new ExitsEmailException("User already collaborated", HttpStatus.ALREADY_REPORTED);
+
+			} else
+				throw new MailNotFoundException("this mail not Found:" + email, HttpStatus.NOT_FOUND);
+		}
+
+		else
+			throw new UserNotFoundException("user Not Found", HttpStatus.NOT_FOUND);
+	}
+
+	
+	
+	
+	
+	public List<UsersEntity> getCollaborators(String token, long notesId) {
+
+		Long userId = generateToken.parseJWTToken(token);
+		user = repository.getusersByid(userId);
+
+		if (user != null) {
+			NotesEntity note = notesRepository.findBynotesId(notesId);
+			return note.getCollaborateUser();
+
+		} else
+			throw new UserNotFoundException("user not found", HttpStatus.NOT_FOUND);
+	}
+
+	@Transactional
+	public NotesEntity removeCollaborator(Long notesId, String email, String token) {
+		UsersEntity user;
+
+		UsersEntity collaborator = repository.getusersByemail(email);
+		try {
+			Long userId = generateToken.parseJWTToken(token);
+			user = repository.getusersByid(userId);
+		} catch (Exception e) {
+			throw new UserNotFoundException("USER NOT FOUND WITH GIVEN Id", HttpStatus.NOT_FOUND);
+		}
+		if (user != null) {
+			if (collaborator != null) {
+				NotesEntity note = notesRepository.findBynotesId(notesId);
+				note.getCollaborateUser().remove(collaborator);
+				notesRepository.createNote(note);
+			} else {
+				throw new CollaboratorNotFoundExcepton("there is no collaborator", HttpStatus.NOT_FOUND);
+			}
+
+		}
+		return null;
+	}
+
+	@Transactional
+	public List<NotesEntity> getAllNotesCollaborators(String token) {
+		try {
+			Long userId = generateToken.parseJWTToken(token);
+			user = repository.getusersByid(userId);
+		} catch (Exception e) {
+			throw new UserNotFoundException("USER NOT FOUND WITH GIVEN Id", HttpStatus.NOT_FOUND);
+		}
+		List<NotesEntity> notes = user.getCollaborateNotes();
+		return notes;
+	}
+
+}

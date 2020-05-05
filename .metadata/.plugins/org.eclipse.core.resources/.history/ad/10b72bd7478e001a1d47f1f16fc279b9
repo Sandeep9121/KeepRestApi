@@ -1,0 +1,31 @@
+package com.bridzelabz.fundoonotes.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+import lombok.Data;
+
+@Embeddable
+//@Entity
+@Data
+public class ImageModel implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	public ImageModel(String name, String type, byte[] picByte) {
+		this.name = name;
+		this.type = type;
+		this.picByte = picByte;
+	}
+	
+	@Column(name = "imageName")
+	private String name;
+	@Column(name = "imageType")
+	private String type;
+	@Column(name = "picByte", length = 1000)
+	private byte[] picByte;
+
+
+}
+

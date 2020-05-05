@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bridzelabz.fundoonotes.dto.NoteDto;
 import com.bridzelabz.fundoonotes.dto.NoteUpdate;
 import com.bridzelabz.fundoonotes.dto.ReminderDto;
+import com.bridzelabz.fundoonotes.model.ImageModel;
 import com.bridzelabz.fundoonotes.model.NotesEntity;
 
 public interface INoteServices {
@@ -41,7 +42,7 @@ public interface INoteServices {
 
 	List<NotesEntity> searchByTitle(String title, String token);
 	
-	MultipartFile uploadImg(String token,Long notesId,MultipartFile file);
+	ImageModel uploadImg(String token,Long notesId,MultipartFile file);
 	
 	
 }

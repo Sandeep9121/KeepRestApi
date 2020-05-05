@@ -13,8 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import com.bridzelabz.fundoonotes.model.NotesEntity;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Repository
+@Slf4j
 public class NotesRepository implements INoteRepository {
 	@Autowired
 	private EntityManager entityManager;
@@ -108,6 +111,23 @@ notes.setNotesCreatedDate(LocalDateTime.now());
 		query.setParameter("userId", userId);
 		return query.getResultList();
 	}
+
+	@Override
+	@Transactional
+	public int picByte(String name ,byte[] picByte, String type,long notesId) {
+		Session session = entityManager.unwrap(Session.class);
+		Query<?> query = session.createQuery("update NotesEntity set pic_byte='"+picByte+
+				                              "', image_type='"+type+
+				                              "', image_name='"+name 
+				                              +"' where notes_id='"+notesId+"'");
+		log.info("----picByte----repooo--"+picByte);
+		log.info("----pictype----"+type);
+		
+return query.executeUpdate();
+		
+	}
+
+	
 	
 /*	@Transactional
 	public List<NotesEntity> getAllNotes(long userId) {

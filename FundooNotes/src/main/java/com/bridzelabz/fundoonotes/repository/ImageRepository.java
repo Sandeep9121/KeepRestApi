@@ -3,12 +3,19 @@ package com.bridzelabz.fundoonotes.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import com.bridzelabz.fundoonotes.model.ImageModel;
 import com.bridzelabz.fundoonotes.model.NotesEntity;
 
-@Service
-public interface ImageRepository extends JpaRepository<NotesEntity, Long> {
-  
-	//Optional<NotesEntity> findById(long notesId );
 
-	void save(byte[] file);
-}
+//public interface ImageRepository extends JpaRepository<NotesEntity, Long> {
+//
+//	void save(ImageModel img);
+//  
+//	//Optional<NotesEntity> findById(long notesId );
+//
+//	//void save(ImageModel img);
+//}
+//@Service
+//public interface ImageRepository extends JpaRepository<ImageModel, Long> {
+//
+//}

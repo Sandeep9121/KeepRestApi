@@ -6,8 +6,10 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ImageCompress {
-	public static byte[] compressImg(byte[] data) {
+	public byte[] compressImg(byte[] data) {
 		Deflater deflater = new Deflater();
 		deflater.setInput(data);
 		deflater.finish();
@@ -27,7 +29,7 @@ public class ImageCompress {
 		return outputStream.toByteArray();
 	}
 	
-	public static byte[] decompressImg(byte[] data) {
+	public  byte[] decompressImg(byte[] data) {
 		Inflater inflater = new Inflater();
 		inflater.setInput(data);
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);

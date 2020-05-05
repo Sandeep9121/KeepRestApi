@@ -1,0 +1,23 @@
+package com.bridzelabz.fundoonotes.model;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class ImageModel {
+	
+	public ImageModel(String name, String type, byte[] picByte) {
+		this.name = name;
+		this.type = type;
+		this.picByte = picByte;
+	}
+
+	private Long picId;
+	private String name;
+	private String type;
+	@Column(name = "picByte", length = 1000)
+	private byte[] picByte;
+
+
+}
+
