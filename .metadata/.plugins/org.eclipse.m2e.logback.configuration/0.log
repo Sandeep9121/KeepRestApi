@@ -6950,3 +6950,4 @@ Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: end tag nam
 2020-05-05 07:01:18,315 [Worker-165: Launching FundooNotes - FundooNotesApiApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
 2020-05-05 07:01:18,420 [Worker-165: Launching FundooNotes - FundooNotesApiApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2020-05-05 07:01:18,440 [Worker-165: Launching FundooNotes - FundooNotesApiApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-05-05 07:01:18,440 [Worker-165: Launching FundooNotes - FundooNotesApiApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Mr Sandeep\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\FundooNotes\src\test\resources
