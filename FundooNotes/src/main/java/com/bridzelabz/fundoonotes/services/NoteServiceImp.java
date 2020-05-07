@@ -67,7 +67,7 @@ public class NoteServiceImp implements INoteServices {
 				notes.setNotesCreatedDate(LocalDateTime.now());
 				notes.setPinned(false);
 				notes.setTrashed(false);
-		       // notes.setImage(null);
+		       notes.setImage(null);
 				
 				/*
 				 * mapping user to notesss
@@ -181,7 +181,7 @@ public class NoteServiceImp implements INoteServices {
 
 
 	public boolean restored(String token, long notesId) {
-		Long userId = generateToken.parseJWTToken(token);
+		//Long userId = generateToken.parseJWTToken(token);
 		
 		if (notesRepository.setRestored(token, notesId)) {
 			return true;
@@ -321,16 +321,30 @@ public class NoteServiceImp implements INoteServices {
 		return null;
 	}
 	
-	/*
-	 * 
-	public ImageModel getImage(@PathVariable("imageName") String imageName) throws IOException {
-
-		final Optional<ImageModel> retrievedImage = imageRepository.findByName(imageName);
-		ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
-				decompressBytes(retrievedImage.get().getPicByte()));
+	
+	@Override
+	public ImageModel getImage(String token, Long notesId) {
+       
+		NotesEntity notes = notesRepository.findBynotesId(notesId);
+		if(notes!=null) {
+//	        
+//	        ImageModel img=new ImageModel(noteImg., type, picByte)
+//		final Optional<NotesEntity> retrievedImage = imgRepo.findByName(imageName);
+		 // ImageModel img=new ImageModel()
+		
+		NotesEntity  noteImg=notesRepository.getImageById(notesId);
+			//NotesEntity notes=
+		ImageModel image=noteImg.getImage();
+		ImageModel img = new ImageModel(image.getName(),image.getType(),
+				impCompressor.decompressImg(image.getPicByte())); 
+		log.info("---------compressbyte---"+image.getPicByte());
+		log.info("=--decompreesed file...----"+impCompressor.decompressImg(image.getPicByte()));
 		return img;
+		}
+		return null;
 	}
-	 */
+	
+	
 
 //
 //	@Override

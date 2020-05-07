@@ -28,4 +28,6 @@ public interface INoteRepository {
 	List<NotesEntity> fetchByTitle(String title, long userId);	 
 
 	int picByte(String string, byte[] picByte,String type,long notesId);
+	
+	NotesEntity getImageById(long notesId); 
 }

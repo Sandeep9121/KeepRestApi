@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity.BodyBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bridzelabz.fundoonotes.dto.NoteDto;
 import com.bridzelabz.fundoonotes.dto.NoteUpdate;
 import com.bridzelabz.fundoonotes.dto.ReminderDto;
+import com.bridzelabz.fundoonotes.model.ImageModel;
 import com.bridzelabz.fundoonotes.model.NotesEntity;
 import com.bridzelabz.fundoonotes.reponse.Response;
 import com.bridzelabz.fundoonotes.services.INoteServices;
@@ -205,10 +205,22 @@ public class NoteController {
 	}
 	
 	
+//	@GetMapping(path = { "/note/getImage/{imageName}" })
+//	public ResponseEntity<Response> getImage(@PathVariable("imageName") String imageName, @RequestHeader String token,@RequestParam("notesId") Long notesId) {
+	
+	@GetMapping(path = { "/note/getImage" })
+	public ResponseEntity<Response> getImage(@RequestHeader String token,@RequestParam("notesId") Long notesId) {
+	 ImageModel img =noteServices.getImage(token, notesId);
+		if(img!=null) {
+			 return  ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("image uploaded",img));
+		}
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("there is no Image Found"));
+	}
+	
 //	@GetMapping("/notesex")
 //	public ResponseEntity<Response> get(@RequestParam("token") String token){
 //		log.info("=-----------------------hey i am out");
-//		List<NotesEntity> allnotes=noteServices.getAllnotes(token);
+//		List<NotesEntity> allnotes=noteServices.getAllnotes(token);s
 //		//log.info("notesInfo"+allnotes);
 //		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("gwtting",token));
 //	}

@@ -8,7 +8,6 @@ import javax.persistence.Embeddable;
 import lombok.Data;
 
 @Embeddable
-//@Entity
 @Data
 public class ImageModel implements Serializable {
 	

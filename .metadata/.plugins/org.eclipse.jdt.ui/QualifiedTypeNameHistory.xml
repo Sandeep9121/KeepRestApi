@@ -21,10 +21,7 @@
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 <fullyQualifiedTypeName name="springfox.documentation.swagger2.annotations.EnableSwagger2"/>
 <fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.services.ICollaboratorServices"/>
-<fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
 <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
-<fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.model.NotesEntity"/>
-<fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 <fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
@@ -32,13 +29,21 @@
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.util.zip.Inflater"/>
 <fullyQualifiedTypeName name="java.util.zip.DataFormatException"/>
-<fullyQualifiedTypeName name="lombok.Data"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-<fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.repository.ImageRepository"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-<fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.utility.ImageCompress"/>
 <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
 <fullyQualifiedTypeName name="javax.persistence.Embeddable"/>
 <fullyQualifiedTypeName name="javax.persistence.Column"/>
 <fullyQualifiedTypeName name="javax.persistence.Embedded"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="lombok.Data"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.utility.ImageCompress"/>
+<fullyQualifiedTypeName name="org.springframework.http.RequestEntity.BodyBuilder"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
+<fullyQualifiedTypeName name="java.util.Optional"/>
+<fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.repository.ImageRepository"/>
+<fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.model.ImageModel"/>
+<fullyQualifiedTypeName name="com.bridzelabz.fundoonotes.model.NotesEntity"/>
 </qualifiedTypeNameHistroy>
